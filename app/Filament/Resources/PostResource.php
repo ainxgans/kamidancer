@@ -6,6 +6,7 @@ use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
 use Filament\Forms;
+use Filament\Forms\FormsComponent;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -23,18 +24,20 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                    Forms\Components\Card::make()
-                ->schema([
-                    Forms\Components\TextInput::make('title')
-                        ->required()
-                        ->maxLength(255),
-                    Forms\Components\FileUpload::make('thumbnail')
-                        ->required(),
-                    Forms\Components\RichEditor::make('description')
-                        ->required(),
-                    Forms\Components\DatePicker::make('posted_at')
-                        ->required(),
-                ])
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TagsInput::make('tags')
+                            ->required(),
+                        Forms\Components\FileUpload::make('thumbnail')
+                            ->required(),
+                        Forms\Components\RichEditor::make('description')
+                            ->required(),
+                        Forms\Components\DatePicker::make('posted_at')
+                            ->required(),
+                    ])
             ]);
     }
 
