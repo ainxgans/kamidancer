@@ -12,7 +12,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Post::all();
+            $data = Post::all();
+        
         return response()->json(['data' =>$data]);
     }
 
@@ -27,9 +28,9 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        $data = Post::find($post);
+        $data = Post::find($id);
         return response()->json(['data' =>$data]);
     }
 
@@ -47,5 +48,11 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+    public function search(Request $request)
+    {
+        $term = $request->query('search');
+        $data = Post::where("title","LIKE","%".$term."%")->get();
+        return response()->json(['data' => $data]);
     }
 }
