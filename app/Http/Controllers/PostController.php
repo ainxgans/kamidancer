@@ -13,39 +13,16 @@ class PostController extends Controller
     public function index()
     {
         $data = Post::all();
-        return response()->json(['data' =>$data]);
+        return response()->json(['data' => $data]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Post $post)
     {
         $data = Post::find($post);
-        return response()->json(['data' =>$data]);
+        return response()->json(['data' => $data]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Post $post)
+    public function postByTags($tags)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Post $post)
-    {
-        //
+        $data = Post::whereJsonContains('tags', $tags)->get();
+        return response()->json(['data' => $data]);
     }
 }
