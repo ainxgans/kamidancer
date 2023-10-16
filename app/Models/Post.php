@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'tags', 'thumbnail', 'description', 'posted_at', 'tags'];
+
+    protected $fillable = ['title', 'tags', 'thumbnail', 'description', 'posted_at'];
+    protected $casts = [
+        'tags' => 'array',
+    ];
 }

@@ -12,9 +12,9 @@ class PostController extends Controller
      */
     public function index()
     {
-            $data = Post::all();
-        
-        return response()->json(['data' =>$data]);
+        $data = Post::all();
+
+        return response()->json(['data' => $data]);
     }
 
     /**
@@ -31,28 +31,17 @@ class PostController extends Controller
     public function show($id)
     {
         $data = Post::find($id);
-        return response()->json(['data' =>$data]);
+        return response()->json(['data' => $data]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Post $post)
+    public function postByTags($tags)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Post $post)
-    {
-        //
+        $data = Post::whereJsonContains('tags', $tags)->get();
+        return response()->json(['data' => $data]);
     }
     public function search(Request $request)
     {
         $term = $request->query('search');
-        $data = Post::where("title","LIKE","%".$term."%")->get();
+        $data = Post::where("title", "LIKE", "%" . $term . "%")->get();
         return response()->json(['data' => $data]);
     }
 }
